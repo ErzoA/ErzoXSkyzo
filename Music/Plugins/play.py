@@ -27,7 +27,7 @@ from Music.MusicUtilities.database.blacklistchat import (blacklisted_chats, blac
 from Music.MusicUtilities.database.gbanned import (get_gbans_count, is_gbanned_user, add_gban_user, add_gban_user)
 from Music.MusicUtilities.database.theme import (_get_theme, get_theme, save_theme)
 from Music.MusicUtilities.database.assistant import (_get_assistant, get_assistant, save_assistant)
-from Music.config import DURATION_LIMIT, GROUP
+from Music.config import DURATION_LIMIT
 from Music.MusicUtilities.helpers.decorators import errors
 from Music.MusicUtilities.helpers.filters import command
 from Music.MusicUtilities.helpers.gets import (get_url, themes, random_assistant, ass_det)
@@ -58,11 +58,11 @@ def time_to_seconds(time):
         int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":")))
     )
 
-@Client.on_message(command(["play", "play@Tg_Vc_00_Bot"]))
+@Client.on_message(command(["play", "pl", "play@Tg_Vc_00_Bot"]))
 async def play(_, message: Message):
     chat_id = message.chat.id
     if message.sender_chat:
-        return await message.reply_text("You're an __Anonymous Admin__!\nRevert back to User Account From Admin Rights.")  
+        return await message.reply_text("kamu adalah __Admin Anonim or Akun Channel__!\nKembalikan ke Akun Pengguna.")  
     user_id = message.from_user.id
     chat_title = message.chat.title
     username = message.from_user.first_name
@@ -74,7 +74,7 @@ async def play(_, message: Message):
         return await message.reply_text(f"Bot is under Maintenance. Sorry for the inconvenience!")
     a = await app.get_chat_member(message.chat.id , BOT_ID)
     if a.status != "administrator":
-        await message.reply_text(f"I need to be admin with some permissions:\n\n- **can_manage_voice_chats:** To manage voice chats\n- **can_delete_messages:** To delete Music's Searched Waste\n- **can_invite_users**: For inviting assistant to chat\n**can_restrict_members**: For Protecting Music from Spammers.")
+        await message.reply_text(f"Saya perlu menjadi admin dengan beberapa izin:\n\n- **can_manage_voice_chats:** Untuk mengelola obrolan suara\n- **can_delete_messages:** Untuk menghapus Sampah yang Dicari Musik\n- **can_invite_users**: Untuk mengundang asisten untuk Obrolan Suara\n**can_restrict_members**: Untuk Melindungi Musik dari Spammer.")
         return
     if not a.can_manage_voice_chats:
         await message.reply_text(
@@ -242,7 +242,7 @@ async def play(_, message: Message):
                 except Exception as e:
                     taken = "00:00"
                 size = d['_total_bytes_str']
-                mystic.edit(f"**❤️‍🔥 Downloaded {title[:50]}.....**\n\n**📚 FileSize:** {size}\n**⚡ Time Taken:** {taken} sec\n\n**📑 Converting Music File**")
+                mystic.edit(f"**Downloaded {title[:50]}.....**\n\n**FileSize:** {size}\n**Time Taken:** {taken} sec\n\n**Converting Music File**")
                 print(f"[{videoid}] Downloaded| Elapsed: {taken} seconds")  
         loop = asyncio.get_event_loop()
         x = await loop.run_in_executor(None, download, link, my_hook)
@@ -256,7 +256,7 @@ async def play(_, message: Message):
             buttons = playlist_markup(user_name, user_id)
             hmo = await message.reply_photo(
             photo=thumb, 
-            caption=("**Usage:** /play [Music Name Or Youtube Link Or Reply to Audio]\n\nIf You Want To Play Playlists! Select The One From Below.\n\n**More Info In [Group](t.me/{GROUP})**"),    
+            caption=("**Usage:** /play or /pl [Music Name Or Youtube Link Or Reply to Audio]\n\nIf You Want To Play Playlists! Select The One From Below.\n\n**More Info In [Group](t.me/{GROUP})**"),    
             reply_markup=InlineKeyboardMarkup(buttons),
             ) 
             return
@@ -289,7 +289,7 @@ async def play(_, message: Message):
         buttons = search_markup(ID1, ID2, ID3, ID4, ID5, duration1, duration2, duration3, duration4, duration5, user_id, query)
         hmo = await message.reply_photo(
             photo=thumb, 
-            caption=(f"1️⃣<b>{title1[:25]}</b>\n┣ ❤️‍🔥 __Powered By {BOT_NAME}__\n┗ 🧰 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})__</u>\n\n2️⃣<b>{title2[:25]}</b>\n┣ ❤️‍🔥 __Powered By {BOT_NAME}__\n┗ 🧰 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})__</u>\n\n3️⃣<b>{title3[:25]}</b>\n┣ ❤️‍🔥 __Powered By {BOT_NAME}__\n┗ 🧰 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})__</u>\n\n4️⃣<b>{title4[:25]}</b>\n┣ ❤️‍🔥 __Powered By {BOT_NAME}__\n┗ 🧰 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})__</u>\n\n5️⃣<b>{title5[:25]}</b>\n┣ ❤️‍🔥 __Powered {BOT_NAME}__\n┗ 🧰 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})__</u>"),    
+            caption=(f"1️⃣<b>{title1[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})__</u>\n\n2️⃣<b>{title2[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})__</u>\n\n3️⃣<b>{title3[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})__</u>\n\n4️⃣<b>{title4[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})__</u>\n\n5️⃣<b>{title5[:25]}</b>\n┣__Powered {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})__</u>"),    
             reply_markup=InlineKeyboardMarkup(buttons),
         )  
         disable_web_page_preview=True
@@ -438,7 +438,7 @@ async def startyuplay(_,CallbackQuery):
             except Exception as e:
                 taken = "00:00"
             size = d['_total_bytes_str']
-            mystic.edit(f"**📥 Downloaded {title[:50]}.....**\n\n**📚 FileSize:** {size}\n**⌛ Time Taken:** {taken} sec\n\n**📑 Converting Flicks File**")
+            mystic.edit(f"**Downloaded {title[:50]}.....**\n\n**FileSize:** {size}\n**Time Taken:** {taken} sec\n\n**Converting File**")
             print(f"[{videoid}] Downloaded| Elapsed: {taken} seconds")    
     loop = asyncio.get_event_loop()
     x = await loop.run_in_executor(None, download, url, my_hook)
@@ -551,7 +551,7 @@ async def popat(_,CallbackQuery):
     if i == 1:
         buttons = search_markup2(ID6, ID7, ID8, ID9, ID10, duration6, duration7, duration8, duration9, duration10 ,user_id, query)
         await CallbackQuery.edit_message_text(
-            f"6️⃣<b>{title6[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID6})__</u>\n\n7️⃣<b>{title7[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID7})__</u>\n\n8️⃣<b>{title8[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID8})__</u>\n\n9️⃣<b>{title9[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID9})__</u>\n\n🔟<b>{title10[:25]}</b>\n┣ ⚡ Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID10})__</u>",    
+            f"6️⃣<b>{title6[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID6})__</u>\n\n7️⃣<b>{title7[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID7})__</u>\n\n8️⃣<b>{title8[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID8})__</u>\n\n9️⃣<b>{title9[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID9})__</u>\n\n🔟<b>{title10[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID10})__</u>",    
             reply_markup=InlineKeyboardMarkup(buttons),
         )  
         disable_web_page_preview=True
@@ -559,7 +559,7 @@ async def popat(_,CallbackQuery):
     if i == 2:
         buttons = search_markup(ID1, ID2, ID3, ID4, ID5, duration1, duration2, duration3, duration4, duration5, user_id, query)
         await CallbackQuery.edit_message_text(
-            f"1️⃣<b>{title1[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})__</u>\n\n2️⃣<b>{title2[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})__</u>\n\n3️⃣<b>{title3[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})__</u>\n\n4️⃣<b>{title4[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})__</u>\n\n5️⃣<b>{title5[:25]}</b>\n┣ ⚡ __Powered By {BOT_NAME}__\n┗ 💎 <u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})__</u>",    
+            f"1️⃣<b>{title1[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID1})__</u>\n\n2️⃣<b>{title2[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID2})__</u>\n\n3️⃣<b>{title3[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID3})__</u>\n\n4️⃣<b>{title4[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID4})__</u>\n\n5️⃣<b>{title5[:25]}</b>\n┣__Powered By {BOT_NAME}__\n┗<u>__[Get Additional Information](https://t.me/{BOT_USERNAME}?start=info_{ID5})__</u>",    
             reply_markup=InlineKeyboardMarkup(buttons),
         )  
         disable_web_page_preview=True
