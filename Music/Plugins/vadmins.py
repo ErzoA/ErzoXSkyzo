@@ -65,7 +65,7 @@ async def close(_, query: CallbackQuery):
     await query.message.delete()
 
 
-@app.on_message(command(["vskip"]) & filters.group)
+@app.on_message(command(["vskip", "vs"]) & filters.group)
 @authorized_users_only
 async def skip(client, m: Message):
 
@@ -118,7 +118,7 @@ async def skip(client, m: Message):
             await m.reply(OP)
 
 
-@app.on_message(command(["vstop"]) & filters.group)
+@app.on_message(command(["vend", "ve"]) & filters.group)
 @authorized_users_only
 async def stop(client, m: Message):
     chat_id = m.chat.id
@@ -133,7 +133,7 @@ async def stop(client, m: Message):
         await m.reply("❌ **Tidak ada dalam streaming**")
 
 
-@app.on_message(command(["vpause"]) & filters.group)
+@app.on_message(command(["vpause", "vp"]) & filters.group)
 @authorized_users_only
 async def pause(client, m: Message):
     chat_id = m.chat.id
@@ -149,7 +149,7 @@ async def pause(client, m: Message):
         await m.reply("❌ **Tidak ada dalam streaming**")
 
 
-@app.on_message(command(["vresume"]) & filters.group)
+@app.on_message(command(["vresume", "vr"]) & filters.group)
 @authorized_users_only
 async def resume(client, m: Message):
     chat_id = m.chat.id
@@ -165,7 +165,7 @@ async def resume(client, m: Message):
         await m.reply("❌ **Tidak ada dalam streaming**")
 
 
-@app.on_message(command(["vmute"]) & filters.group)
+@app.on_message(command(["vmute", "vm"]) & filters.group)
 @authorized_users_only
 async def mute(client, m: Message):
     chat_id = m.chat.id
@@ -181,7 +181,7 @@ async def mute(client, m: Message):
         await m.reply("❌ **Tidak ada dalam streaming**")
 
 
-@app.on_message(command(["vunmute"]) & filters.group)
+@app.on_message(command(["vunmute", "vun"]) & filters.group)
 @authorized_users_only
 async def unmute(client, m: Message):
     chat_id = m.chat.id
